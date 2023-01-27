@@ -78,6 +78,8 @@ const signinController =  (req, res) =>{
                 }
             });
 
+            console.log("Test");
+
             
 
             // let isUserExist = resultUser ? true :  false;
