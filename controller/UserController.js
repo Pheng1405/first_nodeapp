@@ -78,7 +78,7 @@ const signinController =  (req, res) =>{
                 }
             });
 
-            console.log("Test");
+        
 
             
 
