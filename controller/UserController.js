@@ -2,17 +2,19 @@ const axios = require("axios");
 const con = require("../config/Database");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
+const {cloudinary} = require("../helper/cloudinary");
+const uploader = require("../helper/multer");
 require("dotenv").config();
+
 const {createTokens, validateToken} = require("../helper/JWT");
 
-const signupController = (req, res) =>{
+const signupController = async (req, res) =>{
     
     const {username, email , password, profile} = req.body;
 
-
     const findUserSql = "SELECT COUNT(id) as found FROM tbl_user WHERE email = ? OR username = ?";
 
-    con.query(findUserSql, [email, email], (err, result)=>{
+    con.query(findUserSql, [email, email], async (err, result)=>{
         if(!err){
             let resultUser = Number(result[0]["found"]);
 
@@ -22,11 +24,20 @@ const signupController = (req, res) =>{
                 return res.json({error : "This user has already used"});
             }
 
+            let userProfie = "";
+            
+            if(profile){
+                userProfie = await cloudinary.uploader.upload(profile);
+                userProfie = userProfie.secure_url;
+            }
+            
+            
+
             const createUserSql = "INSERT INTO `tbl_user`(`username`,`password`, `email`, `profile`) VALUES (?,?,?,?)";
 
-
-            bcrypt.hash(String(password), 10).then(hashPassword =>{
-                con.query(createUserSql, [username, hashPassword, email, profile]);
+            await bcrypt.hash(String(password), 10).then((hashPassword) =>{
+                
+                con.query(createUserSql, [username, hashPassword, email, userProfie]);
                 if(!err){
                     res.json({
                         message : "user created",
