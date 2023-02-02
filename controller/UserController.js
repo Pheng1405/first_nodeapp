@@ -123,9 +123,11 @@ const editProfilePictureController  = async (req, res) =>{
     const {profile} =  req.body;
     const {username} = req.params;
 
-    console.log(username);
-    console.log(profile);
-    
+    res.json({
+        username : username,
+        profile : profile
+    });
+
     let userProfile = "";
 
     // if(profile){
