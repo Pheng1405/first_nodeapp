@@ -63,7 +63,7 @@ const signinController =  (req, res) =>{
     // console.log(findUserSql);
     con.query(findUserSql, [email, email], (err, result)=>{
         if(result.length){
-            console.log(result);
+            // console.log(result);
             let resultUser = result[0];
             let dbPassword = resultUser.password;
             // console.log(resultUser);
@@ -132,14 +132,14 @@ const editProfilePictureController  = async (req, res) =>{
 
         con.query(sqlUpdatePicture, [userProfile, username], (err, result)=>{
             if(!err){
-                console.log("Successs");
+                // console.log("Successs");
                 res.json({
                     message : "Profile Picture updated successful",
                 });
 
             }
             else{
-                console.log("Fail");
+                // console.log("Fail");
                 res.json({
                     err     : true,
                     message : "Something went Wrong",

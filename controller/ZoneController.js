@@ -78,7 +78,7 @@ const create = (req, res) => {
         message.status = "status is required";
     }
 
-    console.log(Object.keys(message));
+    // console.log(Object.keys(message));
 
     if(Object.keys(message).length > 0){
         res.json({

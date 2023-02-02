@@ -27,7 +27,7 @@ const findOne = (req, res) =>{
     con.query(sql,[id], (err, result)=>{
         if(!err){
 
-            console.log(result);
+            // console.log(result);
             let response = result[0];
             let mainData = {...result, related : ""};
 
