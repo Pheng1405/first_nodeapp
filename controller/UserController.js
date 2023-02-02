@@ -120,32 +120,33 @@ const profileController = (req, res) =>{
 }
 
 const editProfilePictureController  = async (req, res) =>{
-    const {profile} =  req.body;
-
+    const {profile, username} =  req.body;
     let userProfile = "";
 
     if(profile){
-        userProfile = await cloudinary.uploader.upload(profile);
-        userProfile = userProfile.secure_url;
+        console.log(profile);
+        console.log(username);
+        // userProfile = await cloudinary.uploader.upload(profile);
+        // userProfile = userProfile.secure_url;
 
-        sqlUpdatePicture = "UPDATE `tbl_user` SET `profile`=?";
+        // sqlUpdatePicture = "UPDATE `tbl_user` SET `profile`=? WHERE username = ?";
 
-        con.query(sqlUpdatePicture, [userProfile], (err, result)=>{
-            if(!err){
-                console.log("Successs");
-                res.json({
-                    message : "Profile Picture updated successful",
-                });
+        // con.query(sqlUpdatePicture, [userProfile, username], (err, result)=>{
+        //     if(!err){
+        //         console.log("Successs");
+        //         res.json({
+        //             message : "Profile Picture updated successful",
+        //         });
 
-            }
-            else{
-                console.log("Fail");
-                res.json({
-                    err     : true,
-                    message : "Something went Wrong",
-                })
-            }
-        });
+        //     }
+        //     else{
+        //         console.log("Fail");
+        //         res.json({
+        //             err     : true,
+        //             message : "Something went Wrong",
+        //         })
+        //     }
+        // });
     }
 }
 module.exports = {signinController, signupController, profileController, editProfilePictureController};

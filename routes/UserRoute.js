@@ -5,8 +5,8 @@ const UserRoute = (app) =>{
     app.post("/api/login", signinController);
     app.post("/api/register", signupController);
     app.get("/api/profile", validateToken, profileController);
-    app.post("/api/edit-profile-pic", editProfilePictureController);
-    
+    app.put("/api/edit-profile-pic", editProfilePictureController);
+
 }
 
 module.exports = UserRoute;
