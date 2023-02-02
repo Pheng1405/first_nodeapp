@@ -120,33 +120,37 @@ const profileController = (req, res) =>{
 }
 
 const editProfilePictureController  = async (req, res) =>{
-    const {profile, username} =  req.body;
+    const {profile} =  req.body;
+    const {username} = req.params;
+
+    console.log(username);
+    console.log(profile);
+    
     let userProfile = "";
 
-    if(profile){
-        console.log(profile);
-        console.log(username);
-        // userProfile = await cloudinary.uploader.upload(profile);
-        // userProfile = userProfile.secure_url;
+    // if(profile){
+        
+    //     userProfile = await cloudinary.uploader.upload(profile);
+    //     userProfile = userProfile.secure_url;
 
-        // sqlUpdatePicture = "UPDATE `tbl_user` SET `profile`=? WHERE username = ?";
+    //     sqlUpdatePicture = "UPDATE `tbl_user` SET `profile`=? WHERE username = ?";
 
-        // con.query(sqlUpdatePicture, [userProfile, username], (err, result)=>{
-        //     if(!err){
-        //         console.log("Successs");
-        //         res.json({
-        //             message : "Profile Picture updated successful",
-        //         });
+    //     con.query(sqlUpdatePicture, [userProfile, username], (err, result)=>{
+    //         if(!err){
+    //             console.log("Successs");
+    //             res.json({
+    //                 message : "Profile Picture updated successful",
+    //             });
 
-        //     }
-        //     else{
-        //         console.log("Fail");
-        //         res.json({
-        //             err     : true,
-        //             message : "Something went Wrong",
-        //         })
-        //     }
-        // });
-    }
+    //         }
+    //         else{
+    //             console.log("Fail");
+    //             res.json({
+    //                 err     : true,
+    //                 message : "Something went Wrong",
+    //             })
+    //         }
+    //     });
+    // }
 }
 module.exports = {signinController, signupController, profileController, editProfilePictureController};
