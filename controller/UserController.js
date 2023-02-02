@@ -37,7 +37,7 @@ const signupController = async (req, res) =>{
 
             await bcrypt.hash(String(password), 10).then((hashPassword) =>{
                 
-                con.query(createUserSql, [username, hashPassword, email, userProfie]);
+                con.query(createUserSql, [username, hashPassword, email, userProfile]);
                 if(!err){
                     res.json({
                         message : "user created",
