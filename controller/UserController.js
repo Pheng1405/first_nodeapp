@@ -84,6 +84,7 @@ const signinController =  (req, res) =>{
                     res.json({
                         username : resultUser.username,
                         profile  : resultUser.profile,
+                        email    : resultUser.email,
                         token    : accessToken
                     });
                 }
