@@ -66,7 +66,7 @@ const signinController =  (req, res) =>{
             console.log(result);
             let resultUser = result[0];
             let dbPassword = resultUser.password;
-            console.log(resultUser);
+            // console.log(resultUser);
             bcrypt.compare(password, dbPassword).then((match) => {
                 if(!match){
                     res
@@ -120,39 +120,32 @@ const profileController = (req, res) =>{
 }
 
 const editProfilePictureController  = async (req, res) =>{
-    const {profile} =  req.body;
-    const {username} = req.params;
-
-    res.json({
-        username : username,
-        profile : profile
-    });
-
+    const {profile, username} =  req.body;
     let userProfile = "";
 
-    // if(profile){
+    if(profile){
         
-    //     userProfile = await cloudinary.uploader.upload(profile);
-    //     userProfile = userProfile.secure_url;
+        userProfile = await cloudinary.uploader.upload(profile);
+        userProfile = userProfile.secure_url;
 
-    //     sqlUpdatePicture = "UPDATE `tbl_user` SET `profile`=? WHERE username = ?";
+        sqlUpdatePicture = "UPDATE `tbl_user` SET `profile`=? WHERE username = ?";
 
-    //     con.query(sqlUpdatePicture, [userProfile, username], (err, result)=>{
-    //         if(!err){
-    //             console.log("Successs");
-    //             res.json({
-    //                 message : "Profile Picture updated successful",
-    //             });
+        con.query(sqlUpdatePicture, [userProfile, username], (err, result)=>{
+            if(!err){
+                console.log("Successs");
+                res.json({
+                    message : "Profile Picture updated successful",
+                });
 
-    //         }
-    //         else{
-    //             console.log("Fail");
-    //             res.json({
-    //                 err     : true,
-    //                 message : "Something went Wrong",
-    //             })
-    //         }
-    //     });
-    // }
+            }
+            else{
+                console.log("Fail");
+                res.json({
+                    err     : true,
+                    message : "Something went Wrong",
+                })
+            }
+        });
+    }
 }
 module.exports = {signinController, signupController, profileController, editProfilePictureController};
