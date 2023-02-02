@@ -24,11 +24,11 @@ const signupController = async (req, res) =>{
                 return res.json({error : "This user has already used"});
             }
 
-            let userProfie = "";
+            let userProfile = "";
             
             if(profile){
-                userProfie = await cloudinary.uploader.upload(profile);
-                userProfie = userProfie.secure_url;
+                userProfile = await cloudinary.uploader.upload(profile);
+                userProfile = userProfile.secure_url;
             }
             
             
@@ -118,4 +118,34 @@ const signinController =  (req, res) =>{
 const profileController = (req, res) =>{
     res.json("Profile");
 }
-module.exports = {signinController, signupController, profileController};
+
+const editProfilePictureController  = async (req, res) =>{
+    const {profile} =  req.body;
+
+    let userProfile = "";
+
+    if(profile){
+        userProfile = await cloudinary.uploader.upload(profile);
+        userProfile = userProfile.secure_url;
+
+        sqlUpdatePicture = "UPDATE `tbl_user` SET `profile`=?";
+
+        con.query(sqlUpdatePicture, [userProfile], (err, result)=>{
+            if(!err){
+                console.log("Successs");
+                res.json({
+                    message : "Profile Picture updated successful",
+                });
+
+            }
+            else{
+                console.log("Fail");
+                res.json({
+                    err     : true,
+                    message : "Something went Wrong",
+                })
+            }
+        });
+    }
+}
+module.exports = {signinController, signupController, profileController, editProfilePictureController};
