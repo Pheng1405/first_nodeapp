@@ -14,7 +14,7 @@ const signupController = async (req, res) =>{
 
     const findUserSql = "SELECT COUNT(id) as found FROM tbl_user WHERE email = ? OR username = ?";
 
-    con.query(findUserSql, [email, email], async (err, result)=>{
+    con.query(findUserSql, [email, username], async (err, result)=>{
         if(!err){
             let resultUser = Number(result[0]["found"]);
 
